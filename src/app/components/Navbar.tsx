@@ -1,14 +1,59 @@
 "use client";
 import { useCart } from '../context/CartContext';
 import { useUser } from '../context/UserContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Product } from '../types/product';
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const { cart } = useCart();
   const { user, logout } = useUser();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [suggestions, setSuggestions] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const router = useRouter();
   const cartQuantity = cart.items.reduce((total, item) => total + item.quantity, 0);
+
+  useEffect(() => {
+    // Fetch products when component mounts
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('https://dummyjson.com/products');
+        const data = await response.json();
+        setProducts(data.products);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const handleSearch = (value: string) => {
+    setSearchTerm(value);
+    if (value.trim() === '') {
+      setSuggestions([]);
+      setShowSuggestions(false);
+      return;
+    }
+
+    const filtered = products
+      .filter(product =>
+        product.title.toLowerCase().includes(value.toLowerCase())
+      )
+      .slice(0, 6);
+
+    setSuggestions(filtered);
+    setShowSuggestions(true);
+  };
+
+  const handleSuggestionClick = (productId: number) => {
+    setShowSuggestions(false);
+    setSearchTerm('');
+    router.push(`/product/${productId}`);
+  };
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50">
@@ -23,11 +68,14 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Search Bar - hidden on smaller screens */}
-          <div className="hidden lg:flex flex-1 mx-8">
+          {/* Search Bar with Suggestions */}
+          <div className="hidden lg:flex flex-1 mx-8 relative">
             <div className="flex w-full">
               <input
                 type="text"
+                value={searchTerm}
+                onChange={(e) => handleSearch(e.target.value)}
+                onFocus={() => setShowSuggestions(true)}
                 placeholder="Search for products..."
                 className="w-full py-2 px-4 rounded-l-md text-gray-800 focus:outline-none border border-white"
               />
@@ -35,6 +83,36 @@ export default function Navbar() {
                 <i className="fas fa-search"></i>
               </button>
             </div>
+
+            {/* Search Suggestions Dropdown */}
+            {showSuggestions && suggestions.length > 0 && (
+              <>
+                <div 
+                  className="fixed inset-0" 
+                  onClick={() => setShowSuggestions(false)}
+                />
+                <div className="absolute top-full left-0 right-0 bg-white mt-1 rounded-md shadow-lg z-50">
+                  {suggestions.map(product => (
+                    <div
+                      key={product.id}
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center"
+                      onClick={() => handleSuggestionClick(product.id)}
+                    >
+                      <img 
+                        src={product.thumbnail} 
+                        alt={product.title}
+                        className="w-10 h-10 object-cover rounded mr-3"
+                      />
+                      <div>
+                        <div className="text-gray-900">{product.title}</div>
+                        <div className="text-gray-600 text-sm">${product.price}</div>
+                        <div className="text-green-800 text-xs mt-1">{product.stock} in stock</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {/* Navigation Links - hidden on smaller screens */}

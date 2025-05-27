@@ -3,9 +3,9 @@ export default function Footer() {
     <footer className="bg-[#344e41] text-white pt-12 pb-6">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          {/* Column 1 */}
+          {/* Column eCom */}
           <div>
-            <h3 className="text-lg font-bold mb-4">ShopSphere</h3>
+            <h3 className="text-lg font-bold mb-4">e-COM</h3>
             <p className="text-gray-400 mb-4">
               Your one-stop shop for all your needs. Quality products at
               affordable prices with fast delivery.
@@ -26,7 +26,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2 */}
+          {/* Column Shop */}
           <div>
             <h3 className="text-lg font-bold mb-4">Shop</h3>
             <ul className="space-y-2">
@@ -38,7 +38,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3 */}
+          {/* Column Customer Service */}
           <div>
             <h3 className="text-lg font-bold mb-4">Customer Service</h3>
             <ul className="space-y-2">
@@ -50,7 +50,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4 */}
+          {/* Column About */}
           <div>
             <h3 className="text-lg font-bold mb-4">About</h3>
             <ul className="space-y-2">
@@ -65,7 +65,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 mb-4 md:mb-0">
-            © 2023 ShopSphere. All rights reserved.
+            © 2025 e-COM Limited. All rights reserved.
           </p>
           <div className="flex space-x-6">
             <img src="https://via.placeholder.com/40x25" alt="Visa" className="h-6" />
