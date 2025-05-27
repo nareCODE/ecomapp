@@ -12,7 +12,7 @@ export default function PremiumDelivery() {
             Sign up for Prime to get free delivery and exclusive deals
           </div>
           <a href="#" className="text-sm text-[#588157] hover:underline">
-            Try Prime
+            Try e-COM Prime pass 7 days for free
           </a>
         </div>
       </label>
