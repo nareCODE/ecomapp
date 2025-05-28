@@ -50,7 +50,7 @@ export default function ProductPage() {
 
   if (loading) {
     return (
-      <div className="bg-[#dad7cd] min-h-screen">
+      <div style={{ backgroundColor: 'var(--brandcolor1)' }} className="min-h-screen">
         <Navbar />
         <div className="flex justify-center items-center h-[calc(100vh-120px)]">
           <div className="loader">
@@ -64,14 +64,15 @@ export default function ProductPage() {
 
   if (error || !product) {
     return (
-      <div className="bg-[#dad7cd] min-h-screen">
+      <div style={{ backgroundColor: 'var(--brandcolor1)' }} className="min-h-screen">
         <Navbar />
         <div className="flex justify-center items-center h-[calc(100vh-120px)]">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-red-600 mb-4">{error || 'Product not found'}</h1>
+            <h1 style={{ color: 'var(--text-primary)' }} className="text-2xl font-bold mb-4">{error || 'Product not found'}</h1>
             <button 
               onClick={() => window.history.back()}
-              className="bg-[#588157] text-white px-6 py-2 rounded-md hover:bg-[#3a5a40] transition"
+              style={{ backgroundColor: 'var(--brandcolor6)', color: 'var(--text-primary)' }}
+              className="px-6 py-2 rounded-md hover:bg-[var(--brandcolor7)] transition"
             >
               Go Back
             </button>
@@ -82,12 +83,12 @@ export default function ProductPage() {
   }
 
   return (
-    <div className="bg-[#dad7cd] min-h-screen">
+    <div style={{ backgroundColor: 'var(--brandcolor1)' }} className="min-h-screen">
       <Navbar />
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Product Content */}
-          <div className="lg:col-span-2 bg-white rounded-lg shadow-lg overflow-hidden">
+          <div style={{ backgroundColor: 'var(--brandcolor2)' }} className="lg:col-span-2 rounded-lg shadow-lg overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6">
               {/* Image Gallery */}
               <div>
@@ -103,8 +104,9 @@ export default function ProductPage() {
                       <button
                         onClick={handlePrevImage}
                         disabled={currentImage === 0}
+                        style={{ backgroundColor: 'var(--brandcolor5)' }}
                         className={`absolute left-2 top-1/2 transform -translate-y-1/2 
-                          bg-black/50 hover:bg-black/70 text-white p-2 rounded-full
+                          hover:bg-[var(--brandcolor6)] text-white p-2 rounded-full
                           ${currentImage === 0 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -114,16 +116,16 @@ export default function ProductPage() {
                       <button
                         onClick={handleNextImage}
                         disabled={currentImage === product.images.length - 1}
+                        style={{ backgroundColor: 'var(--brandcolor5)' }}
                         className={`absolute right-2 top-1/2 transform -translate-y-1/2 
-                          bg-black/50 hover:bg-black/70 text-white p-2 rounded-full
+                          hover:bg-[var(--brandcolor6)] text-white p-2 rounded-full
                           ${currentImage === product.images.length - 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </button>
-                      {/* Image Counter */}
-                      <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                      <div style={{ backgroundColor: 'var(--brandcolor5)' }} className="absolute bottom-4 right-4 text-white px-3 py-1 rounded-full text-sm">
                         {currentImage + 1} / {product.images.length}
                       </div>
                     </>
@@ -134,10 +136,10 @@ export default function ProductPage() {
                     <button
                       key={index}
                       onClick={() => setCurrentImage(index)}
-                      className={`flex-shrink-0 ${
+                      className={`flex-shrink-0 rounded-sm ${
                         currentImage === index 
-                          ? 'border-2 border-[#588157]' 
-                          : 'border-2 border-transparent'
+                          ? 'border-2 border-[var(--brandcolor5)]' 
+                          : 'border-2 border-transparent hover:border-[var(--brandcolor3)]'
                       }`}
                     >
                       <img
@@ -152,35 +154,38 @@ export default function ProductPage() {
 
               {/* Product Info */}
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.title}</h1>
+                <h1 style={{ color: 'var(--text-primary)' }} className="text-3xl font-bold mb-4">{product.title}</h1>
                 <div className="flex items-center mb-4">
-                  <div className="flex text-yellow-400">
+                  <div style={{ color: 'var(--brandcolor8)' }} className="flex">
                     {[...Array(5)].map((_, i) => (
-                      <span key={i} className={i < Math.floor(product.rating) ? "text-yellow-400" : "text-gray-300"}>
+                      <span key={i} className={i < Math.floor(product.rating) ? "text-[var(--brandcolor8)]" : "text-[var(--brandcolor3)]"}>
                         ★
                       </span>
                     ))}
                   </div>
-                  <span className="ml-2 text-gray-600">({product.rating})</span>
+                  <span style={{ color: 'var(--text-secondary)' }} className="ml-2">({product.rating})</span>
                 </div>
-                <p className="text-gray-700 mb-6">{product.description}</p>
+                <p style={{ color: 'var(--text-secondary)' }} className="mb-6">{product.description}</p>
                 <div className="mb-6">
-                  <span className="text-3xl font-bold text-gray-900">${product.price}</span>
+                  <span style={{ color: 'var(--text-primary)' }} className="text-3xl font-bold">${product.price}</span>
                   {product.discountPercentage && (
-                    <span className="ml-2 text-sm text-red-600">
+                    <span style={{ color: 'var(--text-primary)', backgroundColor: 'var(--brandcolor3)' }} className="ml-2 text-sm px-2 py-1 rounded">
                       {Math.round(product.discountPercentage)}% OFF
                     </span>
                   )}
                 </div>
                 <div className="mb-6">
                   <span className={`px-4 py-2 rounded ${
-                    product.stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                    product.stock > 0 
+                      ? 'bg-[var(--brandcolor10)] text-[var(--text-primary)]' 
+                      : 'bg-[var(--brandcolor3)] text-[var(--text-primary)]'
                   }`}>
                     {product.stock > 0 ? `In Stock (${product.stock})` : 'Out of Stock'}
                   </span>
                 </div>
                 <button 
-                  className="w-full bg-[#588157] hover:bg-[#3a5a40] text-white py-3 px-6 rounded-md transition duration-200 disabled:bg-gray-400"
+                  style={{ backgroundColor: 'var(--brandcolor5)', color: 'white' }}
+                  className="w-full hover:bg-[var(--brandcolor6)] py-3 px-6 rounded-md transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={product.stock === 0}
                   onClick={() => addToCart(product)}
                 >
@@ -188,46 +193,45 @@ export default function ProductPage() {
                 </button>
 
                 {/* Reviews Section */}
-                <div className="mt-8 border-t pt-8">
-                  <h3 className="text-xl font-bold mb-4">Customer Reviews</h3>
+                <div className="mt-8 border-t pt-8" style={{ borderColor: 'var(--brandcolor3)' }}>
+                  <h3 style={{ color: 'var(--text-primary)' }} className="text-xl font-bold mb-4">Customer Reviews</h3>
                   {product.reviews && product.reviews.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {product.reviews.map((review) => (
-                        <div key={review.reviewerName} className="bg-gray-50 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-200"
-                        >
+                        <div key={review.reviewerName} style={{ backgroundColor: 'var(--brandcolor3)' }} className="rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center space-x-2">
-                              <div className="w-10 h-10 bg-[#588157] rounded-full flex items-center justify-center">
-                                <span className="text-white font-medium">
+                              <div style={{ backgroundColor: 'var(--brandcolor6)' }} className="w-10 h-10 rounded-full flex items-center justify-center">
+                                <span style={{ color: 'var(--text-primary)' }} className="font-medium">
                                   {review.reviewerName.charAt(0).toUpperCase()}
                                 </span>
                               </div>
-                              <span className="font-medium text-gray-900">{review.user}</span>
+                              <span style={{ color: 'var(--text-primary)' }} className="font-medium">{review.reviewerName}</span>
                             </div>
                             {review.date && (
-                              <span className="text-sm text-gray-500">
+                              <span style={{ color: 'var(--text-secondary)' }} className="text-sm">
                                 {new Date(review.date).toLocaleDateString()}
                               </span>
                             )}
                           </div>
                           <div className="flex items-center mb-2">
-                            <div className="flex text-yellow-400">
+                            <div style={{ color: 'var(--brandcolor8)' }} className="flex">
                               {[...Array(5)].map((_, i) => (
-                                <span key={i} className={i < Math.floor(review.rating) ? "text-yellow-400" : "text-gray-300"}>
+                                <span key={i} className={i < Math.floor(review.rating) ? "text-[var(--brandcolor8)]" : "text-[var(--brandcolor4)]"}>
                                   ★
                                 </span>
                               ))}
                             </div>
-                            <span className="ml-2 text-sm font-medium text-gray-600">
+                            <span style={{ color: 'var(--text-secondary)' }} className="ml-2 text-sm font-medium">
                               {review.rating.toFixed(1)}
                             </span>
                           </div>
-                          <p className="text-gray-600 mt-2">{review.comment}</p>
+                          <p style={{ color: 'var(--text-secondary)' }} className="mt-2">{review.comment}</p>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-gray-500 italic">No reviews yet</p>
+                    <p style={{ color: 'var(--text-secondary)' }} className="italic">No reviews yet</p>
                   )}
                 </div>
               </div>
