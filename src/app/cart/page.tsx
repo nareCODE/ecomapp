@@ -10,25 +10,26 @@ export default function CartPage() {
   const finalTotal = cart.total + shippingCost;
 
   return (
-    <div className="bg-[#dad7cd] min-h-screen">
+    <div style={{ backgroundColor: 'var(--brandcolor1)' }} className="min-h-screen">
       <Navbar />
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8">Shopping Cart</h1>
+      {/* Added pt-20 class to create space after navbar */}
+      <div className="container mx-auto px-4 py-8 pt-30">
+        <h1 style={{ color: 'var(--text-primary)' }} className="text-3xl font-bold mb-8">Shopping Cart</h1>
         
         {cart.items.length === 0 ? (
-          <div className="bg-white rounded-lg p-8 text-center">
-            <p className="text-gray-600 mb-4">Your cart is empty</p>
-            <a href="/" className="text-[#588157] hover:text-[#3a5a40] font-medium">
+          <div style={{ backgroundColor: 'var(--brandcolor2)' }} className="rounded-lg p-8 text-center">
+            <p style={{ color: 'var(--text-secondary)' }} className="mb-4">Your cart is empty</p>
+            <a href="/" style={{ color: 'var(--brandcolor5)' }} className="hover:text-[var(--brandcolor6)] font-medium">
               Continue Shopping
             </a>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6">
             {/* Cart Items */}
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div style={{ backgroundColor: 'var(--brandcolor2)' }} className="rounded-lg shadow-md p-6">
               <div className="space-y-4">
                 {cart.items.map((item) => (
-                  <div key={item.product.id} className="flex items-center justify-between border-b pb-4">
+                  <div key={item.product.id} style={{ borderColor: 'var(--brandcolor3)' }} className="flex items-center justify-between border-b pb-4">
                     <div className="flex items-center space-x-4">
                       <img
                         src={item.product.thumbnail}
@@ -36,14 +37,15 @@ export default function CartPage() {
                         className="w-20 h-20 object-cover rounded"
                       />
                       <div>
-                        <h3 className="font-medium">{item.product.title}</h3>
-                        <p className="text-gray-600">${item.product.price}</p>
+                        <h3 style={{ color: 'var(--text-primary)' }} className="font-medium">{item.product.title}</h3>
+                        <p style={{ color: 'var(--text-secondary)' }}>${item.product.price}</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-4">
                       <select
                         value={item.quantity}
                         onChange={(e) => updateQuantity(item.product.id, parseInt(e.target.value))}
+                        style={{ borderColor: 'var(--brandcolor4)' }} 
                         className="border rounded-md px-2 py-1"
                       >
                         {[...Array(10)].map((_, i) => (
@@ -54,7 +56,8 @@ export default function CartPage() {
                       </select>
                       <button
                         onClick={() => removeFromCart(item.product.id)}
-                        className="text-red-600 hover:text-red-800 p-2 rounded-full hover:bg-red-50 transition-colors"
+                        style={{ color: 'var(--brandcolor3)' }}
+                        className="hover:text-[var(--brandcolor4)] p-2 rounded-full hover:bg-[var(--brandcolor3)] hover:bg-opacity-20 transition-colors"
                         title="Remove from cart"
                       >
                         <i className="fas fa-trash-alt"></i>
@@ -68,25 +71,28 @@ export default function CartPage() {
             <PremiumDelivery />
 
             {/* Order Summary */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-bold mb-4">Order Summary</h2>
+            <div style={{ backgroundColor: 'var(--brandcolor2)' }} className="rounded-lg shadow-md p-6">
+              <h2 style={{ color: 'var(--text-primary)' }} className="text-xl font-bold mb-4">Order Summary</h2>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span>Subtotal</span>
-                  <span>${cart.total.toFixed(2)}</span>
+                  <span style={{ color: 'var(--text-primary)' }}>Subtotal</span>
+                  <span style={{ color: 'var(--text-primary)' }}>${cart.total.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Shipping (10%)</span>
-                  <span>${shippingCost.toFixed(2)}</span>
+                  <span style={{ color: 'var(--text-primary)' }}>Shipping (10%)</span>
+                  <span style={{ color: 'var(--text-primary)' }}>${shippingCost.toFixed(2)}</span>
                 </div>
-                <div className="border-t pt-2 mt-2">
+                <div style={{ borderColor: 'var(--brandcolor3)' }} className="border-t pt-2 mt-2">
                   <div className="flex justify-between font-bold">
-                    <span>Total</span>
-                    <span>${finalTotal.toFixed(2)}</span>
+                    <span style={{ color: 'var(--text-primary)' }}>Total</span>
+                    <span style={{ color: 'var(--text-primary)' }}>${finalTotal.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
-              <button className="w-full bg-[#588157] hover:bg-[#3a5a40] text-white py-3 rounded-md mt-6 transition duration-200">
+              <button 
+                style={{ backgroundColor: 'var(--brandcolor5)', color: 'white' }}
+                className="w-full hover:bg-[var(--brandcolor6)] py-3 rounded-md mt-6 transition duration-200"
+              >
                 Proceed to Checkout
               </button>
             </div>

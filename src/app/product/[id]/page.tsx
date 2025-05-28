@@ -85,7 +85,8 @@ export default function ProductPage() {
   return (
     <div style={{ backgroundColor: 'var(--brandcolor1)' }} className="min-h-screen">
       <Navbar />
-      <div className="container mx-auto px-4 py-8">
+      {/* Added pt-20 class to create space after navbar */}
+      <div className="container mx-auto px-4 py-8 pt-40">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Product Content */}
           <div style={{ backgroundColor: 'var(--brandcolor2)' }} className="lg:col-span-2 rounded-lg shadow-lg overflow-hidden">
@@ -173,15 +174,6 @@ export default function ProductPage() {
                       {Math.round(product.discountPercentage)}% OFF
                     </span>
                   )}
-                </div>
-                <div className="mb-6">
-                  <span className={`px-4 py-2 rounded ${
-                    product.stock > 0 
-                      ? 'bg-[var(--brandcolor10)] text-[var(--text-primary)]' 
-                      : 'bg-[var(--brandcolor3)] text-[var(--text-primary)]'
-                  }`}>
-                    {product.stock > 0 ? `In Stock (${product.stock})` : 'Out of Stock'}
-                  </span>
                 </div>
                 <button 
                   style={{ backgroundColor: 'var(--brandcolor5)', color: 'white' }}

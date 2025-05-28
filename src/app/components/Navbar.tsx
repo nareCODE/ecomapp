@@ -13,6 +13,7 @@ export default function Navbar() {
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const router = useRouter();
   const cartQuantity = cart.items.reduce((total, item) => total + item.quantity, 0);
@@ -24,6 +25,10 @@ export default function Navbar() {
         const response = await fetch('https://dummyjson.com/products');
         const data = await response.json();
         setProducts(data.products);
+        
+        // Extract unique categories
+        const uniqueCategories = [...new Set(data.products.map((p: any) => p.category))];
+        setCategories(uniqueCategories);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -216,14 +221,20 @@ export default function Navbar() {
                   {/* Categories */}
                   <div className="px-4 py-2">
                     <div className="text-sm font-bold text-[#a3b18a] mb-2">Categories</div>
-                    {/*
-                      List of categories can be mapped here if dynamic
-                    */}
-                    {['All Categories', 'Today\'s Deals', 'Electronics', 'Home & Kitchen', 'Furniture', 'Fashion', 'Toys & Games', 'Grocery'].map((category, index) => (
+                    {/* Static categories */}
+                    <a href="/categories" className="block py-2 px-2 text-sm hover:bg-[#588157] hover:text-white rounded transition-colors">
+                      All Categories
+                    </a>
+                    <a href="/deals" className="block py-2 px-2 text-sm hover:bg-[#588157] hover:text-white rounded transition-colors">
+                      Today's Deals
+                    </a>
+                    
+                    {/* Dynamic categories */}
+                    {categories.map((category, index) => (
                       <a
                         key={index}
-                        href="#"
-                        className="block py-2 px-2 text-sm hover:bg-[#588157] hover:text-white rounded transition-colors"
+                        href={`/categories/${category}`}
+                        className="block py-2 px-2 text-sm hover:bg-[#588157] hover:text-white rounded transition-colors capitalize"
                       >
                         {category}
                       </a>
@@ -243,27 +254,19 @@ export default function Navbar() {
             <a href="/categories" className="whitespace-nowrap hover:text-yellow-300 transition">
               <i className="fas fa-bars mr-2"></i> All Categories
             </a>
-            <a href="#" className="whitespace-nowrap hover:text-yellow-300 transition">
+            <a href="/deals" className="whitespace-nowrap hover:text-yellow-300 transition">
               Today's Deals
             </a>
-            <a href="#" className="whitespace-nowrap hover:text-yellow-300 transition">
-              Electronics
-            </a>
-            <a href="#" className="whitespace-nowrap hover:text-yellow-300 transition">
-              Home & Kitchen
-            </a>
-            <a href="#" className="whitespace-nowrap hover:text-yellow-300 transition">
-              Furniture
-            </a>
-            <a href="#" className="whitespace-nowrap hover:text-yellow-300 transition">
-              Fashion
-            </a>
-            <a href="#" className="whitespace-nowrap hover:text-yellow-300 transition">
-              Toys & Games
-            </a>
-            <a href="#" className="whitespace-nowrap hover:text-yellow-300 transition">
-              Grocery
-            </a>
+            {/* Dynamically generated category links */}
+            {categories.map((category, index) => (
+              <a 
+                key={index} 
+                href={`/categories/${category}`} 
+                className="whitespace-nowrap hover:text-yellow-300 transition capitalize"
+              >
+                {category}
+              </a>
+            ))}
           </div>
         </div>
       </div>
