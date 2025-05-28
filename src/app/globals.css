@@ -72,9 +72,6 @@ h1 span {
   to { transform: rotate(-360deg); }
 }
 
-        .hero-gradient {
-            background: linear-gradient(to right, #4f46e5, #7c3aed);
-        }
         .deal-badge {
             animation: pulse 2s infinite;
         }
