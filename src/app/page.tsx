@@ -1,16 +1,12 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import DealOfTheDay from './components/dealoftheday';
 import { Product } from './types/product';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import { useCart } from './context/CartContext';
 import ProductCard from './components/ProductCard';
 
 export default function Home() {
-  const router = useRouter();
-  const { addToCart } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>([]);  // Add categories state
   const [loading, setLoading] = useState(true);
@@ -28,7 +24,7 @@ export default function Home() {
         setProducts(fetchedProducts);
         
         // Get unique categories
-        const uniqueCategories = [...new Set(fetchedProducts.map((p: any) => p.category))];
+        const uniqueCategories = [...new Set(fetchedProducts.map((p: Product) => p.category))]; // Changed any to Product
         setCategories(uniqueCategories);
         
         // Select 6 most recent products as deals
@@ -58,15 +54,6 @@ export default function Home() {
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
-  };
-
-  const handleProductClick = (productId: number) => {
-    router.push(`/product/${productId}`);
-  };
-
-  const handleAddToCart = (e: React.MouseEvent, product: Product) => {
-    e.stopPropagation(); // Prevent triggering the product click
-    addToCart(product);
   };
 
   if (loading) {

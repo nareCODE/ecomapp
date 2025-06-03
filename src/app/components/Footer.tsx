@@ -1,3 +1,5 @@
+import Image from 'next/image'; // Import Image
+
 export default function Footer() {
   return (
     <footer className="bg-[#344e41] text-white pt-12 pb-6">
@@ -68,10 +70,10 @@ export default function Footer() {
             © 2025 e-COM Limited. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            <img src="https://via.placeholder.com/40x25" alt="Visa" className="h-6" />
-            <img src="https://via.placeholder.com/40x25" alt="Mastercard" className="h-6" />
-            <img src="https://via.placeholder.com/40x25" alt="PayPal" className="h-6" />
-            <img src="https://via.placeholder.com/40x25" alt="Apple Pay" className="h-6" />
+            <Image src="https://via.placeholder.com/40x25" alt="Visa" width={40} height={25} className="h-6" />
+            <Image src="https://via.placeholder.com/40x25" alt="Mastercard" width={40} height={25} className="h-6" />
+            <Image src="https://via.placeholder.com/40x25" alt="PayPal" width={40} height={25} className="h-6" />
+            <Image src="https://via.placeholder.com/40x25" alt="Apple Pay" width={40} height={25} className="h-6" />
           </div>
         </div>
       </div>

@@ -4,6 +4,8 @@ import { useUser } from '../context/UserContext';
 import { useState, useEffect } from 'react';
 import { Product } from '../types/product';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link'; // Import Link
+import Image from 'next/image'; // Import Image
 
 export default function Navbar() {
   const { cart } = useCart();
@@ -27,7 +29,7 @@ export default function Navbar() {
         setProducts(data.products);
         
         // Extract unique categories
-        const uniqueCategories = [...new Set(data.products.map((p: any) => p.category))];
+        const uniqueCategories = [...new Set(data.products.map((p: Product) => p.category))]; // Changed any to Product
         setCategories(uniqueCategories);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -67,10 +69,10 @@ export default function Navbar() {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-4">
-            <a href="/" className="text-2xl font-bold text-white">
+            <Link href="/" className="text-2xl font-bold text-white">
               <span className="text-[var(--brandcolor1)]">e-</span>
               <span>COM</span>
-            </a>
+            </Link>
           </div>
 
           {/* Search Bar with Suggestions */}
@@ -103,9 +105,11 @@ export default function Navbar() {
                       className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center"
                       onClick={() => handleSuggestionClick(product.id)}
                     >
-                      <img 
+                      <Image 
                         src={product.thumbnail} 
                         alt={product.title}
+                        width={40} // Specify width
+                        height={40} // Specify height
                         className="w-10 h-10 object-cover rounded mr-3"
                       />
                       <div>
@@ -152,16 +156,16 @@ export default function Navbar() {
                 )}
               </div>
             ) : (
-              <a href="/login" className="hover:text-blue-300 transition">
+              <Link href="/login" className="hover:text-blue-300 transition">
                 <div className="text-xs">Hello, Sign in</div>
                 <div className="font-medium">Account & Favorites</div>
-              </a>
+              </Link>
             )}
             <a href="#" className="hover:text-blue-300 transition">
               <div className="text-xs">Returns</div>
               <div className="font-medium">& Orders</div>
             </a>
-            <a href="/cart" className="flex items-center hover:text-blue-300 transition">
+            <Link href="/cart" className="flex items-center hover:text-blue-300 transition">
               <div className="relative">
                 <i className="fas fa-shopping-cart text-md"></i>
                 <span className="absolute -right-12 top-4 bg-[#a3b18a] text-gray-900 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
@@ -169,7 +173,7 @@ export default function Navbar() {
                 </span>
               </div>
               <span className="ml-1 font-medium">Cart</span>
-            </a>
+            </Link>
           </div>
 
           {/* Menu Button for smaller screens */}
@@ -210,34 +214,34 @@ export default function Navbar() {
 
                   {/* Cart Section */}
                   <div className="px-4 py-3 border-b border-[#588157]">
-                    <a href="/cart" className="flex items-center justify-between hover:text-[#a3b18a]">
+                    <Link href="/cart" className="flex items-center justify-between hover:text-[#a3b18a]">
                       <span>Cart</span>
                       <span className="bg-[#a3b18a] text-gray-900 px-2 py-1 rounded-full text-xs">
                         {cartQuantity}
                       </span>
-                    </a>
+                    </Link>
                   </div>
 
                   {/* Categories */}
                   <div className="px-4 py-2">
                     <div className="text-sm font-bold text-[#a3b18a] mb-2">Categories</div>
                     {/* Static categories */}
-                    <a href="/categories" className="block py-2 px-2 text-sm hover:bg-[#588157] hover:text-white rounded transition-colors">
+                    <Link href="/categories" className="block py-2 px-2 text-sm hover:bg-[#588157] hover:text-white rounded transition-colors">
                       All Categories
-                    </a>
-                    <a href="/deals" className="block py-2 px-2 text-sm hover:bg-[#588157] hover:text-white rounded transition-colors">
-                      Today's Deals
-                    </a>
+                    </Link>
+                    <Link href="/deals" className="block py-2 px-2 text-sm hover:bg-[#588157] hover:text-white rounded transition-colors">
+                      Today&apos;s Deals
+                    </Link>
                     
                     {/* Dynamic categories */}
                     {categories.map((category, index) => (
-                      <a
+                      <Link
                         key={index}
                         href={`/categories/${category}`}
                         className="block py-2 px-2 text-sm hover:bg-[#588157] hover:text-white rounded transition-colors capitalize"
                       >
                         {category}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -251,21 +255,21 @@ export default function Navbar() {
       <div className="bg-[#344e41] text-white hidden lg:block shadow-md">
         <div className="container mx-auto px-4 py-3 flex items-center overflow-x-auto scroll-hidden">
           <div className="flex space-x-8">
-            <a href="/categories" className="whitespace-nowrap hover:text-yellow-300 transition">
+            <Link href="/categories" className="whitespace-nowrap hover:text-yellow-300 transition">
               <i className="fas fa-bars mr-2"></i> All Categories
-            </a>
-            <a href="/deals" className="whitespace-nowrap hover:text-yellow-300 transition">
-              Today's Deals
-            </a>
+            </Link>
+            <Link href="/deals" className="whitespace-nowrap hover:text-yellow-300 transition">
+              Today&apos;s Deals
+            </Link>
             {/* Dynamically generated category links */}
             {categories.map((category, index) => (
-              <a 
+              <Link 
                 key={index} 
                 href={`/categories/${category}`} 
                 className="whitespace-nowrap hover:text-yellow-300 transition capitalize"
               >
                 {category}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

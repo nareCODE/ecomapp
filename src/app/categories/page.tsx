@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -12,7 +11,6 @@ interface ProductResponse {
 }
 
 export default function CategoriesPage() {
-  const router = useRouter();
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 

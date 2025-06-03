@@ -7,6 +7,7 @@ import Navbar from '@/app/components/Navbar';
 import PremiumDelivery from '@/app/components/PremiumDelivery';
 import ProductSidebar from '@/app/components/ProductSidebar'; // Changed from ProductSidebar to productsidebar
 import Footer from '@/app/components/Footer';
+import Image from 'next/image'; // Import Image
 
 export default function ProductPage() {
   const params = useParams();
@@ -93,11 +94,14 @@ export default function ProductPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6">
               {/* Image Gallery */}
               <div>
-                <div className="relative mb-4">
-                  <img
+                <div className="relative mb-4 w-full h-[400px]"> {/* Ensure parent has dimensions and relative positioning for fill */}
+                  <Image
                     src={product.images[currentImage]}
                     alt={product.title}
-                    className="w-full h-[400px] object-contain rounded-lg"
+                    fill // Use fill for responsive images
+                    style={{ objectFit: 'contain' }} // Apply object-fit via style
+                    className="rounded-lg"
+                    priority={currentImage === 0} // Prioritize the first image for LCP
                   />
                   {/* Navigation Arrows */}
                   {product.images.length > 1 && (
@@ -137,16 +141,20 @@ export default function ProductPage() {
                     <button
                       key={index}
                       onClick={() => setCurrentImage(index)}
-                      className={`flex-shrink-0 rounded-sm ${
+                      className={`flex-shrink-0 rounded-sm relative ${ // Added relative for Image fill
                         currentImage === index 
                           ? 'border-2 border-[var(--brandcolor5)]' 
                           : 'border-2 border-transparent hover:border-[var(--brandcolor3)]'
                       }`}
+                      style={{ width: '80px', height: '80px' }} // Set explicit size for button parent
                     >
-                      <img
+                      <Image
                         src={image}
                         alt={`${product.title} ${index + 1}`}
-                        className="w-20 h-20 object-cover rounded"
+                        fill // Use fill
+                        style={{ objectFit: 'cover' }} // Apply object-fit via style
+                        className="rounded"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Optional: provide sizes for optimization
                       />
                     </button>
                   ))}

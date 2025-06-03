@@ -3,6 +3,8 @@ import { useCart } from '../context/CartContext';
 import Navbar from '../components/Navbar';
 import PremiumDelivery from '../components/PremiumDelivery';
 import Footer from '../components/Footer';
+import Link from 'next/link'; // Import Link
+import Image from 'next/image'; // Import Image
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity } = useCart();
@@ -19,9 +21,9 @@ export default function CartPage() {
         {cart.items.length === 0 ? (
           <div style={{ backgroundColor: 'var(--brandcolor2)' }} className="rounded-lg p-8 text-center">
             <p style={{ color: 'var(--text-secondary)' }} className="mb-4">Your cart is empty</p>
-            <a href="/" style={{ color: 'var(--brandcolor5)' }} className="hover:text-[var(--brandcolor6)] font-medium">
+            <Link href="/" style={{ color: 'var(--brandcolor5)' }} className="hover:text-[var(--brandcolor6)] font-medium">
               Continue Shopping
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6">
@@ -31,9 +33,11 @@ export default function CartPage() {
                 {cart.items.map((item) => (
                   <div key={item.product.id} style={{ borderColor: 'var(--brandcolor3)' }} className="flex items-center justify-between border-b pb-4">
                     <div className="flex items-center space-x-4">
-                      <img
+                      <Image
                         src={item.product.thumbnail}
                         alt={item.product.title}
+                        width={80} // Specify width
+                        height={80} // Specify height
                         className="w-20 h-20 object-cover rounded"
                       />
                       <div>
