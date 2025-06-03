@@ -4,8 +4,17 @@ import { useUser } from '../context/UserContext';
 import { useState, useEffect } from 'react';
 import { Product } from '../types/product';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link'; // Import Link
-import Image from 'next/image'; // Import Image
+import Link from 'next/link';
+import Image from 'next/image';
+
+// Define the expected structure of the API response
+interface ApiResponse {
+  products: Product[];
+  total: number;
+  skip: number;
+  limit: number;
+  // Add other fields if your API response includes them
+}
 
 export default function Navbar() {
   const { cart } = useCart();
@@ -25,12 +34,12 @@ export default function Navbar() {
     const fetchProducts = async () => {
       try {
         const response = await fetch('https://dummyjson.com/products');
-        const data = await response.json();
+        const data: ApiResponse = await response.json(); // Explicitly type the fetched data
         setProducts(data.products);
         
         // Extract unique categories
-        const uniqueCategories = [...new Set(data.products.map((p: Product) => p.category))]; // Changed any to Product
-        setCategories(uniqueCategories);
+        const uniqueCategories = [...new Set(data.products.map((p: Product) => p.category))];
+        setCategories(uniqueCategories); // This should now work as uniqueCategories will be string[]
       } catch (error) {
         console.error('Error fetching products:', error);
       }

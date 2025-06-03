@@ -5,7 +5,16 @@ import { Product } from './types/product';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ProductCard from './components/ProductCard';
-import Link from 'next/link'; // Import Link
+import Link from 'next/link';
+
+// Define the expected structure of the API response
+interface ApiResponse {
+  products: Product[];
+  total: number;
+  skip: number;
+  limit: number;
+  // Add other fields if your API response includes them
+}
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -19,18 +28,19 @@ export default function Home() {
     const fetchProducts = async () => {
       try {
         const response = await fetch('https://dummyjson.com/products');
-        const data = await response.json();
-        const fetchedProducts = data.products;
+        const data: ApiResponse = await response.json(); // Explicitly type the fetched data
+        const fetchedProducts = data.products; // fetchedProducts is now Product[]
         
         setProducts(fetchedProducts);
         
         // Get unique categories
-        const uniqueCategories = [...new Set(fetchedProducts.map((p: Product) => p.category))]; // Changed any to Product
-        setCategories(uniqueCategories);
+        const uniqueCategories = [...new Set(fetchedProducts.map((p: Product) => p.category))];
+        setCategories(uniqueCategories); 
         
         // Select 6 most recent products as deals
         const dealsOfTheDay = [...fetchedProducts]
           .sort((a, b) => {
+            // With ProductMeta defined, a.meta and b.meta will be correctly typed
             const dateA = new Date(a.meta?.createdAt || 0);
             const dateB = new Date(b.meta?.createdAt || 0);
             return dateB.getTime() - dateA.getTime();

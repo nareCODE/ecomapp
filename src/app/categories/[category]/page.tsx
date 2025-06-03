@@ -6,6 +6,15 @@ import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import ProductCard from '@/app/components/ProductCard';
 
+// Define the expected structure of the API response
+interface ApiResponse {
+  products: Product[];
+  total: number;
+  skip: number;
+  limit: number;
+  // Add other fields if your API response includes them
+}
+
 export default function CategoryPage() {
   const params = useParams();
   const [products, setProducts] = useState<Product[]>([]);
@@ -15,7 +24,7 @@ export default function CategoryPage() {
     const fetchProducts = async () => {
       try {
         const response = await fetch('https://dummyjson.com/products');
-        const data = await response.json();
+        const data: ApiResponse = await response.json(); // Explicitly type the fetched data
         const categoryProducts = data.products.filter(
           (p: Product) => p.category === params.category
         );
