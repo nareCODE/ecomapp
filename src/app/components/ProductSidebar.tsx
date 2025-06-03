@@ -72,7 +72,7 @@ export default function ProductSidebar({ product, subtotal = 0 }: ProductSidebar
         </button>
         {showReturnsInfo && (
           <div className="mt-2 text-sm text-gray-600">
-            You can return this item for free within 15 days of delivery. You don't need to pay any fees for returns. You also don't need to explain why. If you click returning a command you will be give a SKU Code for a Post Return.
+            You can return this item for free within 15 days of delivery. You don&apos;t need to pay any fees for returns. You also don&apos;t need to explain why. If you click returning a command you will be give a SKU Code for a Post Return.
           </div>
         )}
       </div>

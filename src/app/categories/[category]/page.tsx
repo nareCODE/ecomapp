@@ -2,14 +2,12 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { Product } from '@/app/types/product';
-import { useCart } from '@/app/context/CartContext';
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import ProductCard from '@/app/components/ProductCard';
 
 export default function CategoryPage() {
   const params = useParams();
-  const { addToCart } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
