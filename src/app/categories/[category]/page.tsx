@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { Product } from '@/app/types/product';
 import { useCart } from '@/app/context/CartContext';
 import Navbar from '@/app/components/Navbar';
@@ -9,7 +9,6 @@ import ProductCard from '@/app/components/ProductCard';
 
 export default function CategoryPage() {
   const params = useParams();
-  const router = useRouter();
   const { addToCart } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -35,11 +34,6 @@ export default function CategoryPage() {
     }
   }, [params.category]);
 
-  const handleAddToCart = (e: React.MouseEvent, product: Product) => {
-    e.stopPropagation();
-    addToCart(product);
-  };
-
   if (loading) {
     return (
       <div className="bg-[#dad7cd] min-h-screen">
@@ -57,9 +51,9 @@ export default function CategoryPage() {
   return (
     <div className="bg-[#dad7cd] min-h-screen">
       <Navbar />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 pt-[120px]">
         <div className="flex items-center mb-8">
-          <h1 className="text-3xl font-bold capitalize">{params.category}</h1>
+          <h1 className="text-3xl font-bold capitalize">{typeof params.category === 'string' ? params.category.replace(/-/g, ' ') : ''}</h1>
           <span className="ml-4 text-gray-600">({products.length} products)</span>
         </div>
 

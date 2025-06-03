@@ -5,6 +5,7 @@ import { Product } from './types/product';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ProductCard from './components/ProductCard';
+import Link from 'next/link'; // Import Link
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -79,7 +80,7 @@ export default function Home() {
         <h2 style={{ color: 'var(--text-primary)' }} className="text-2xl font-bold mb-6">Shop by Category</h2>
         <div className="gap-4 flex flex-wrap">
           {categories.map((category, index) => (
-            <a
+            <Link // Changed from <a> to <Link>
               key={category}
               href={`/categories/${category}`}
               style={{ backgroundColor: 'var(--brandcolor2)', borderColor: 'transparent' }}
@@ -93,7 +94,7 @@ export default function Home() {
                 </div>
                 <span style={{ color: 'var(--text-primary)' }} className="font-medium capitalize text-center">{category}</span>
               </div>
-            </a>
+            </Link> // Changed from </a> to </Link>
           ))}
         </div>
       </div>

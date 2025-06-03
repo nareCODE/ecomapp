@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Link from 'next/link'; // Import Link
 
 interface ProductResponse {
   products: Array<{
@@ -53,7 +54,7 @@ export default function CategoriesPage() {
         <h1 className="text-3xl font-bold mb-8">All Categories</h1>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {categories.map((category) => (
-            <a
+            <Link
               key={category}
               href={`/categories/${category}`}
               className="bg-[var(--brandcolor4)] rounded-lg shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105"
@@ -64,7 +65,7 @@ export default function CategoriesPage() {
                 </div>
                 <h2 className="text-xl font-semibold text-white text-center capitalize">{category}</h2>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </main>

@@ -2,6 +2,7 @@
 import { Product } from '../types/product';
 import { useRouter } from 'next/navigation';
 import { useCart } from '../context/CartContext';
+import Image from 'next/image'; // Import Image
 
 interface DealOfTheDayProps {
   products: Product[];
@@ -35,10 +36,13 @@ export default function DealOfTheDay({ products }: DealOfTheDayProps) {
                 onClick={() => handleClick(product.id)}
               >
                 <div className="relative h-32 mb-2">
-                  <img
+                  <Image // Changed from <img> to <Image>
                     src={product.thumbnail}
                     alt={product.title}
-                    className="w-full h-full object-cover rounded-lg"
+                    fill // Use fill for responsive images within a sized parent
+                    style={{ objectFit: 'cover' }} // Apply object-fit via style
+                    className="rounded-lg"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw" // Optional: provide sizes for optimization
                   />
                   {product.discountPercentage && (
                     <div className="deal-badge absolute top-1 right-1 bg-red-500 px-2 py-0.5 rounded-full text-xs font-bold">
