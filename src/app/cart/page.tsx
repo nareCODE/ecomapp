@@ -3,12 +3,12 @@ import { useCart } from '../context/CartContext';
 import Navbar from '../components/Navbar';
 import PremiumDelivery from '../components/PremiumDelivery';
 import Footer from '../components/Footer';
-import Link from 'next/link'; // Import Link
-import Image from 'next/image'; // Import Image
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity } = useCart();
-  const shippingCost = cart.total * 0.1; // 10% of cart total
+  const shippingCost = cart.total * 0.1;
   const finalTotal = cart.total + shippingCost;
 
   return (
@@ -36,8 +36,8 @@ export default function CartPage() {
                       <Image
                         src={item.product.thumbnail}
                         alt={item.product.title}
-                        width={80} // Specify width
-                        height={80} // Specify height
+                        width={80} 
+                        height={80}
                         className="w-20 h-20 object-cover rounded"
                       />
                       <div>

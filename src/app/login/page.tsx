@@ -33,9 +33,9 @@ export default function LoginPage() {
         throw new Error(data.message || 'Login failed');
       }
 
-      // Store user data in localStorage
+      
       localStorage.setItem('user', JSON.stringify(data));
-      router.push('/'); // Redirect to home page
+      router.push('/'); 
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
     } finally {

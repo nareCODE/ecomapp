@@ -7,7 +7,7 @@ import Navbar from '@/app/components/Navbar';
 import PremiumDelivery from '@/app/components/PremiumDelivery';
 import ProductSidebar from '@/app/components/ProductSidebar'; // Changed from ProductSidebar to productsidebar
 import Footer from '@/app/components/Footer';
-import Image from 'next/image'; // Import Image
+import Image from 'next/image';
 
 export default function ProductPage() {
   const params = useParams();
@@ -99,9 +99,9 @@ export default function ProductPage() {
                     src={product.images[currentImage]}
                     alt={product.title}
                     fill // Use fill for responsive images
-                    style={{ objectFit: 'contain' }} // Apply object-fit via style
+                    style={{ objectFit: 'contain' }} 
                     className="rounded-lg"
-                    priority={currentImage === 0} // Prioritize the first image for LCP
+                    priority={currentImage === 0}
                   />
                   {/* Navigation Arrows */}
                   {product.images.length > 1 && (

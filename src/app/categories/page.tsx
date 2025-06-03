@@ -2,12 +2,12 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Link from 'next/link'; // Import Link
+import Link from 'next/link';
 
 interface ProductResponse {
   products: Array<{
     category: string;
-    // other product fields...
+    
   }>,
 }
 

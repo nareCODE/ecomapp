@@ -7,13 +7,13 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
-// Define the expected structure of the API response
+
 interface ApiResponse {
   products: Product[];
   total: number;
   skip: number;
   limit: number;
-  // Add other fields if your API response includes them
+  
 }
 
 export default function Navbar() {
@@ -30,16 +30,16 @@ export default function Navbar() {
   const cartQuantity = cart.items.reduce((total, item) => total + item.quantity, 0);
 
   useEffect(() => {
-    // Fetch products when component mounts
+    
     const fetchProducts = async () => {
       try {
         const response = await fetch('https://dummyjson.com/products');
-        const data: ApiResponse = await response.json(); // Explicitly type the fetched data
+        const data: ApiResponse = await response.json();
         setProducts(data.products);
         
-        // Extract unique categories
+        
         const uniqueCategories = [...new Set(data.products.map((p: Product) => p.category))];
-        setCategories(uniqueCategories); // This should now work as uniqueCategories will be string[]
+        setCategories(uniqueCategories);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -117,8 +117,8 @@ export default function Navbar() {
                       <Image 
                         src={product.thumbnail} 
                         alt={product.title}
-                        width={40} // Specify width
-                        height={40} // Specify height
+                        width={40} 
+                        height={40}
                         className="w-10 h-10 object-cover rounded mr-3"
                       />
                       <div>

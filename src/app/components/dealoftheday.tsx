@@ -2,7 +2,7 @@
 import { Product } from '../types/product';
 import { useRouter } from 'next/navigation';
 import { useCart } from '../context/CartContext';
-import Image from 'next/image'; // Import Image
+import Image from 'next/image';
 
 interface DealOfTheDayProps {
   products: Product[];

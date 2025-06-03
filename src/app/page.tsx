@@ -7,18 +7,18 @@ import Footer from './components/Footer';
 import ProductCard from './components/ProductCard';
 import Link from 'next/link';
 
-// Define the expected structure of the API response
+
 interface ApiResponse {
   products: Product[];
   total: number;
   skip: number;
   limit: number;
-  // Add other fields if your API response includes them
+ 
 }
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);  // Add categories state
+  const [categories, setCategories] = useState<string[]>([]);  
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [dealOfTheDay, setDealOfTheDay] = useState<Product[]>([]);
@@ -28,19 +28,18 @@ export default function Home() {
     const fetchProducts = async () => {
       try {
         const response = await fetch('https://dummyjson.com/products');
-        const data: ApiResponse = await response.json(); // Explicitly type the fetched data
-        const fetchedProducts = data.products; // fetchedProducts is now Product[]
-        
+        const data: ApiResponse = await response.json();
+        const fetchedProducts = data.products;
         setProducts(fetchedProducts);
         
-        // Get unique categories
+        
         const uniqueCategories = [...new Set(fetchedProducts.map((p: Product) => p.category))];
         setCategories(uniqueCategories); 
         
-        // Select 6 most recent products as deals
+        
         const dealsOfTheDay = [...fetchedProducts]
           .sort((a, b) => {
-            // With ProductMeta defined, a.meta and b.meta will be correctly typed
+            
             const dateA = new Date(a.meta?.createdAt || 0);
             const dateB = new Date(b.meta?.createdAt || 0);
             return dateB.getTime() - dateA.getTime();
@@ -57,7 +56,7 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  // Pagination calculations
+  
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
@@ -90,7 +89,7 @@ export default function Home() {
         <h2 style={{ color: 'var(--text-primary)' }} className="text-2xl font-bold mb-6">Shop by Category</h2>
         <div className="gap-4 flex flex-wrap">
           {categories.map((category, index) => (
-            <Link // Changed from <a> to <Link>
+            <Link 
               key={category}
               href={`/categories/${category}`}
               style={{ backgroundColor: 'var(--brandcolor2)', borderColor: 'transparent' }}
@@ -104,7 +103,7 @@ export default function Home() {
                 </div>
                 <span style={{ color: 'var(--text-primary)' }} className="font-medium capitalize text-center">{category}</span>
               </div>
-            </Link> // Changed from </a> to </Link>
+            </Link> 
           ))}
         </div>
       </div>

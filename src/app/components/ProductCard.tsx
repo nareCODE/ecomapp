@@ -2,7 +2,7 @@
 import { Product } from '../types/product';
 import { useRouter } from 'next/navigation';
 import { useCart } from '../context/CartContext';
-import Image from 'next/image'; // Import Image
+import Image from 'next/image';
 
 interface ProductCardProps {
   product: Product;
@@ -27,12 +27,12 @@ export default function ProductCard({ product }: ProductCardProps) {
       onClick={handleClick}
     >
       <div className="relative w-full h-48"> {/* Ensure parent has dimensions for fill */}
-        <Image // Changed from <img> to <Image>
+        <Image
           src={product.thumbnail}
           alt={product.title}
-          fill // Use fill for responsive images
-          style={{ objectFit: 'cover' }} // Apply object-fit via style
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Optional: provide sizes for optimization
+          fill 
+          style={{ objectFit: 'cover' }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         {product.discountPercentage && (
           <div className="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full">
